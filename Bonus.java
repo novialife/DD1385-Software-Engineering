@@ -11,7 +11,7 @@ public class Bonus {
 		int amount = Integer.parseInt(args[0]);
 		
 
-		myButton[] button_List = new myButton[20];
+		myButton[] button_List = new myButton[amount];
 		
 		
 		int j = 0;
