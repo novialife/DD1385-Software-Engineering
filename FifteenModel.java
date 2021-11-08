@@ -66,10 +66,4 @@ class FifteenModel implements Boardgame {
 	public String getMessage() {
 		return currentMessage;
 	}
-	
-	public void setEmpty(int i, int j) {
-		this.iemp = i;
-		this.jemp = j;
-	}
-
 }
