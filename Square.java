@@ -8,14 +8,18 @@ public class Square extends JButton {
 	private static final long serialVersionUID = 1L;
 	
 
+	public int i;
+	public int j;
 	public JButton button;
 
 	
-	public Square(String Value) {
+	public Square(String Value, int i,int j) {
 		this.setText(Value);
 		this.setBackground(Color.gray);
 		
 		setBorder(new LineBorder(Color.BLACK));
+		this.i = i;
+		this.j = j;
 		
 	}
 	

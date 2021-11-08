@@ -26,56 +26,41 @@ class ViewControl extends JFrame implements ActionListener {
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setLayout(new GridLayout(n,n));
 		
-		size = n;
 		
-		board = new Square[size][size];
-		makeBoard();
+		this.game = gm;
+		this.size = n;
+		this.board = new Square[n][n];
 		
-		setVisible(true);
 		
-    }
-    
-    private void makeBoard() {
-		List<String> listofnum = new ArrayList<String>();
-		String[] nums = {" 1"," 2"," 3"," 4"," 5"," 6"," 7"," 8"," 9","10","11","12","13","14","15","  "};
-		for (String num: nums) {
-			listofnum.add(num);
-		}
-		
-		Collections.shuffle(listofnum);
-		
-		for(int i = 0; i < 4; i++){
-	        for(int j = 0; j < 4; j++){
-	        	board[i][j] = new Square(listofnum.get(0));
-	        	listofnum.remove(0);
-	        }
-	    }
-		
-		for (Square[] buttonrow: board){
-			for (Square button: buttonrow) {
+		for(int i = 0; i < size; i++){
+	        for(int j = 0; j < size; j++){
+				Square button = new Square(game.getStatus(i, j), i, j);
+				board[i][j] = button;
 				button.addActionListener(this);
 				add(button);
 			}
 		}
+		
+		setVisible(true);
+
 	}
 		
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		Square clickedbutton = (Square) e.getSource();
-		Square emptybutton = null;
-		for (Square[] buttonrow: board) {
-			for (Square button: buttonrow) {
-				if (button.getText() == "  ") {
-					emptybutton = button;
-				}
-			}
+		game.move(clickedbutton.i, clickedbutton.j);
+		System.out.println(game.getMessage());
+		update();
+					
+	}
+	
+	private void update() {
+		for(int i = 0; i < size; i++){
+	        for(int j = 0; j < size; j++){
+	        	String newtext = game.getStatus(i, j);
+	        	board[i][j].setText(newtext);
+	        }
 		}
-		
-		emptybutton.setText(clickedbutton.getText());
-		clickedbutton.setText("  ");
-		
-		
-		
 	}
 }
