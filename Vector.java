@@ -3,10 +3,8 @@ package labb6;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
-import java.util.SortedSet;
 import java.util.TreeMap;
 
 public class Vector <E extends Comparable<E>> implements SparseVec<E> {
@@ -48,13 +46,13 @@ public class Vector <E extends Comparable<E>> implements SparseVec<E> {
 
 	@Override
 	public void removeAt(int pos) {
-		E elem = this.get(pos);
-		vec.remove(elem);
+		vec.remove(pos);
 	}
 
 	@Override
 	public void removeElem(E elem) {
-		vec.remove(elem);
+		int pos = this.indexOf(elem);
+		vec.remove(pos);
 	}
 
 	@Override
@@ -87,7 +85,9 @@ public class Vector <E extends Comparable<E>> implements SparseVec<E> {
 	@Override
 	public Object[] toArray() {
 		Object[] arr = new Object[this.maxIndex()+1];
-		
+		if (arr.length == 0) {
+			return null;
+		}
 		for (int i = 0; i <= this.maxIndex(); i++ ) {
 			
 			if (this.get(i) != null) {
@@ -101,6 +101,10 @@ public class Vector <E extends Comparable<E>> implements SparseVec<E> {
 
 	@Override
 	public List<E> sortedValues() {
+		if (vec.values().isEmpty()) {
+			return null;
+		}
+		
 		List<E> out = new ArrayList<E>(vec.values());
 		Collections.sort(out);
 		return out;

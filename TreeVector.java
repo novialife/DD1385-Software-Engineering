@@ -8,8 +8,9 @@ import java.util.Set;
 import java.util.TreeMap;
 
 public class TreeVector <E extends Comparable<E>> extends TreeMap<Integer, E> implements SparseVec<E> {
-	
-	
+
+	private static final long serialVersionUID = 1L;
+
 	public TreeVector() {
 		super();
 	}
@@ -45,13 +46,13 @@ public class TreeVector <E extends Comparable<E>> extends TreeMap<Integer, E> im
 
 	@Override
 	public void removeAt(int pos) {
-		E elem = this.get(pos);
-		this.remove(elem);
+		this.remove(pos);
 	}
 
 	@Override
 	public void removeElem(E elem) {
-		this.remove(elem);
+		int pos = this.indexOf(elem);
+		this.remove(pos);
 	}
 
 	@Override
@@ -84,6 +85,9 @@ public class TreeVector <E extends Comparable<E>> extends TreeMap<Integer, E> im
 	@Override
 	public Object[] toArray() {
 		Object[] arr = new Object[this.maxIndex()+1];
+		if (arr.length == 0) {
+			return null;
+		}
 		
 		for (int i = 0; i <= this.maxIndex(); i++ ) {
 			
@@ -98,6 +102,9 @@ public class TreeVector <E extends Comparable<E>> extends TreeMap<Integer, E> im
 
 	@Override
 	public List<E> sortedValues() {
+		if (this.values().isEmpty()) {
+			return null;
+		}
 		List<E> out = new ArrayList<E>(this.values());
 		Collections.sort(out);
 		return out;
