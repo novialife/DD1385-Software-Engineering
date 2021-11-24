@@ -20,7 +20,8 @@ class Liv extends TreeFrame{
 		path.add(root);
 		treeModel = new DefaultTreeModel(root);
 		tree = new JTree(treeModel);
-		buildTree(sc.nextLine(), root, path);
+		String curr = root.Levelgetter();
+		buildTree(sc.nextLine(), root, path, curr);
 	}
 	
 	CustomNode createNode(String name, String level, String text, CustomNode parent, List<CustomNode> path) {
@@ -51,20 +52,41 @@ class Liv extends TreeFrame{
 		return out;
 	}
 	
-	void buildTree(String line, CustomNode parent, List<CustomNode> path) {		
+	void sysExit(String currTag, String curr, CustomNode parent) {
+		System.out.println("Wrong closing tag! -> " + currTag + " " + parent.parent.level);
+		System.exit(ERROR);
+	}
+	
+	void buildTree(String line, CustomNode parent, List<CustomNode> path, String curr) {
+		
+		String currTag = line.substring(2, line.length()-1);
+		
 		if (line.substring(0, 2).equals("</")) {
+ 			if (!currTag.equals(curr)) {
+				sysExit(currTag, curr, null);
+
+			}
+ 			
 			if (sc.hasNextLine()) {
+				curr = parent.parent.Levelgetter();
 				path.remove(parent);
-				buildTree(sc.nextLine(), parent.parent, path);
+				buildTree(sc.nextLine(), parent.parent, path, curr);
+			}else {
+				if (parent.parent != null && !currTag.equals(parent.parent.level)) {
+					sysExit(currTag, null, parent);
+				}
 			}
 			
 		} else {
-			String[] attr = formatTXT(line);
-			CustomNode child = createNode(attr[0], attr[1], attr[2], parent, path);
-			parent.add(child);
 			if (sc.hasNextLine()) {
+				String[] attr = formatTXT(line);
+				curr = attr[1];
+				CustomNode child = createNode(attr[0], attr[1], attr[2], parent, path);
+				parent.add(child);
 				path.add(child);
-				buildTree(sc.nextLine(), child, path);
+				buildTree(sc.nextLine(), child, path, curr);
+			}else {
+				sysExit(parent.level, null, parent);
 			}
 		}
 	}

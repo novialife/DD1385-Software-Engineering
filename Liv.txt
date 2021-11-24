@@ -2,7 +2,7 @@
 <Rike namn="Växter"> kan inte förflytta sej
 <Division namn="Kryptogamer"> har inte synliga könsdelar
 <Klass namn="Ormbunkar"> har blad och kärl
-</Klass>
+</hehe>
 <Klass namn="Alger"> är röda, gröna eller bruna
 </Klass>
 </Division>
