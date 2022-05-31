@@ -75,32 +75,34 @@ public class CompositeX4 extends ComponentX4 implements Iterable<ComponentX4>{
         
     }
 
-    public Iterator<ComponentX4> deepiIterator(){
-        LinkedList<ComponentX4> queue = new LinkedList<ComponentX4>();
+  public Iterator<ComponentX4> deepiIterator(){
+        LinkedList<ComponentX4> DFSStack = new LinkedList<ComponentX4>();
 
-        for (ComponentX4 child : children ){
-            queue.add(child);
+        for (int i = children.size() - 1; i >= 0; i--) {
+            DFSStack.addFirst(children.get(i));
+
         }
-
         return new Iterator<ComponentX4>() {
             @Override
             public boolean hasNext() {
-                return !queue.isEmpty();
+                return !DFSStack.isEmpty();
             }
-            
+
             @Override
             public ComponentX4 next() {
-                ComponentX4 child = (ComponentX4) queue.pop();
+                ComponentX4 child = (ComponentX4) DFSStack.pop();
                 if (child.hasChildren()){
                     for (ComponentX4 child2 : child.getChildren()){
-                        queue.add(child2);
+                        DFSStack.addFirst(child2);
                     }
-                } 
+                }
                 return child;
             }
         };
+        }
         
     }
+
 
 
 
