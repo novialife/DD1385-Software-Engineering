@@ -1,1 +1,1 @@
-# DD1385-Prutten
+# DD1385 Software Engineering in Java
