@@ -1,4 +1,4 @@
-package Board;
+package chess.src.Board;
 
 import javax.swing.Icon;
 import javax.swing.JButton;

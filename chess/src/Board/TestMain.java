@@ -1,4 +1,4 @@
-package Board;
+package chess.src.Board;
 
 public class TestMain {
 
